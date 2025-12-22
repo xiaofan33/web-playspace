@@ -1,11 +1,11 @@
-import confetti, { type Options } from "canvas-confetti";
+import confetti, { type Options } from 'canvas-confetti';
 
 export function formatNumber(num: number) {
-  return Math.min(999, Math.floor(num)).toString().padStart(3, "0");
+  return Math.min(999, Math.floor(num)).toString().padStart(3, '0');
 }
 
 export function isTouchDevice() {
-  return window.matchMedia("(hover: none)").matches;
+  return window.matchMedia('(hover: none)').matches;
 }
 
 export function playWinConfetti(delay = 300) {
@@ -25,7 +25,7 @@ export function playWinConfetti(delay = 300) {
   ] satisfies Options[];
 
   setTimeout(() => {
-    configs.forEach((config) => {
+    configs.forEach(config => {
       confetti({
         ...defaults,
         ...config,

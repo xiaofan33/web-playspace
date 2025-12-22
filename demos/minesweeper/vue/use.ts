@@ -6,16 +6,16 @@ import {
   toValue,
   watchEffect,
   type MaybeRefOrGetter,
-} from "vue";
+} from 'vue';
 import {
   useElementBounding,
   useEventListener,
   useLocalStorage,
   useTimestamp,
-} from "@vueuse/core";
-import { settingsStoreKey } from "../res/config.json";
-import { defaultSettings, type SettingOptions } from "../theme";
-import { createModel, type CellAction } from "../model";
+} from '@vueuse/core';
+import { settingsStoreKey } from '../res/config.json';
+import { defaultSettings, type SettingOptions } from '../theme';
+import { createModel, type CellAction } from '../model';
 
 export function useMinesweeperModel() {
   const model = reactive(createModel());
@@ -29,9 +29,9 @@ export function useMinesweeperModel() {
   const timerMs = ref(0);
   const stamp = useTimestamp();
   watchEffect(() => {
-    if (stage.value === "ready") {
+    if (stage.value === 'ready') {
       timerMs.value = 0;
-    } else if (stage.value === "playing") {
+    } else if (stage.value === 'playing') {
       const { startAt = stamp.value, duration } = model.timer;
       timerMs.value = stamp.value - startAt + duration;
     }
@@ -60,7 +60,7 @@ export function useBoardEvent(
 
   const boardEl = computed(() => toValue(target));
   const { top, left, width, height } = useElementBounding(boardEl);
-  useEventListener(boardEl, "pointerdown", (event) => {
+  useEventListener(boardEl, 'pointerdown', event => {
     const getPos = (e: PointerEvent) => ({
       x: e.clientX - left.value + boardEl.value!.scrollLeft,
       y: e.clientY - top.value + boardEl.value!.scrollTop,
@@ -78,26 +78,26 @@ export function useBoardEvent(
 
     const onPointerup = (e: PointerEvent) => {
       enableHighlight.value = false;
-      document.body.removeEventListener("pointermove", onPointermove);
-      document.body.removeEventListener("pointerup", onPointerup);
-      document.body.removeEventListener("pointercancel", onPointerup);
+      document.body.removeEventListener('pointermove', onPointermove);
+      document.body.removeEventListener('pointerup', onPointerup);
+      document.body.removeEventListener('pointercancel', onPointerup);
     };
 
     const notRightClick = event.button !== 2;
     enableHighlight.value = notRightClick;
     pointerPosition.value = getPos(event);
-    document.body.addEventListener("pointermove", onPointermove);
-    document.body.addEventListener("pointerup", onPointerup);
-    document.body.addEventListener("pointercancel", onPointerup);
+    document.body.addEventListener('pointermove', onPointermove);
+    document.body.addEventListener('pointerup', onPointerup);
+    document.body.addEventListener('pointercancel', onPointerup);
   });
 
   const operateMatch: Array<[keyof HTMLElementEventMap, CellAction]> = [
-    ["click", "open"],
-    ["contextmenu", "flag"],
-    ["dblclick", "open-around"],
+    ['click', 'open'],
+    ['contextmenu', 'flag'],
+    ['dblclick', 'open-around'],
   ];
   operateMatch.forEach(([eventName, action]) => {
-    useEventListener(boardEl, eventName, (event) => {
+    useEventListener(boardEl, eventName, event => {
       event.preventDefault();
       handler?.(action);
     });

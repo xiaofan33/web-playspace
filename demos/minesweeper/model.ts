@@ -1,8 +1,8 @@
-import { arrayShuffle, type Position } from "~/shared";
+import { arrayShuffle, type Position } from '~/shared';
 
 export type AroundMineCount = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-export type BoardStage = "ready" | "playing" | "lost" | "won";
-export type CellAction = "open" | "flag" | "open-around";
+export type BoardStage = 'ready' | 'playing' | 'lost' | 'won';
+export type CellAction = 'open' | 'flag' | 'open-around';
 
 export interface CellState {
   readonly index: number;
@@ -24,7 +24,7 @@ export interface ModelProps {
 class MinesweeperModel {
   props: ModelProps = { w: 0, h: 0, m: 0 };
   timer: { duration: number; startAt?: number } = { duration: 0 };
-  stage: BoardStage = "ready";
+  stage: BoardStage = 'ready';
   cells: CellState[] = [];
   mineIndexArr: Array<number> = [];
   flagIndexSet: Set<number> = new Set();
@@ -49,7 +49,7 @@ class MinesweeperModel {
       this.cells = Array.from({ length: w * h }, (_, index) => ({ index }));
       this.aroundCellCache = new WeakMap();
     } else {
-      this.cells.forEach((c) => {
+      this.cells.forEach(c => {
         if (c.open) c.open = false;
         if (c.mine) c.mine = false;
         if (c.flag) c.flag = false;
@@ -62,7 +62,7 @@ class MinesweeperModel {
     this.mineIndexArr.length = 0;
     this.flagIndexSet.clear();
     this.timer = { duration };
-    this.stage = "ready";
+    this.stage = 'ready';
 
     if (cellBits?.length) {
       const openedCells: CellState[] = [];
@@ -82,19 +82,19 @@ class MinesweeperModel {
         }
       });
       // ensure all opened cells calculated around mine count
-      openedCells.forEach((c) => this.getAroundMineCount(c));
+      openedCells.forEach(c => this.getAroundMineCount(c));
       this.unopenedCellCount -= openedCells.length;
       this.timer.startAt = Date.now();
-      this.stage = "playing";
+      this.stage = 'playing';
     }
 
     return this;
   }
 
   restart() {
-    if (this.stage === "ready") return;
+    if (this.stage === 'ready') return;
 
-    this.cells.forEach((c) => {
+    this.cells.forEach(c => {
       if (c.open) c.open = false;
       if (c.flag) c.flag = false;
       if (c.boom) c.boom = false;
@@ -102,11 +102,11 @@ class MinesweeperModel {
     this.flagIndexSet.clear();
     this.unopenedCellCount = this.cells.length - this.props.m;
     this.timer = { duration: 0, startAt: Date.now() };
-    this.stage = "playing";
+    this.stage = 'playing';
   }
 
   dump(): ModelProps {
-    const cellBits = this.cells.flatMap((c) => {
+    const cellBits = this.cells.flatMap(c => {
       const bit =
         (c.open ? MinesweeperModel.bitFlags.open : 0) |
         (c.mine ? MinesweeperModel.bitFlags.mine : 0) |
@@ -148,7 +148,7 @@ class MinesweeperModel {
 
   getAroundMineCount(cell: CellState) {
     if (cell.aroundMineCount === undefined) {
-      const { length } = this.getAroundCells(cell).filter((c) => c.mine);
+      const { length } = this.getAroundCells(cell).filter(c => c.mine);
       cell.aroundMineCount = length as AroundMineCount;
     }
     return cell.aroundMineCount;
@@ -164,20 +164,20 @@ class MinesweeperModel {
   }
 
   operate(cell: CellState, action: CellAction, allowOpenAround = false) {
-    if (this.stage === "won" || this.stage === "lost") return;
+    if (this.stage === 'won' || this.stage === 'lost') return;
 
-    if (this.stage === "ready") {
+    if (this.stage === 'ready') {
       this.placeMines(cell);
       this.timer.startAt = Date.now();
-      this.stage = "playing";
+      this.stage = 'playing';
     }
 
-    if (action === "open-around") {
+    if (action === 'open-around') {
       this.doOpenAround(cell);
       return;
     }
 
-    const success = action === "open" ? this.doOpen(cell) : this.doFlag(cell);
+    const success = action === 'open' ? this.doOpen(cell) : this.doFlag(cell);
     if (!success && allowOpenAround) {
       this.doOpenAround(cell);
     }
@@ -185,10 +185,10 @@ class MinesweeperModel {
 
   private placeMines(cell: CellState) {
     const excluded = [cell, ...this.getAroundCells(cell)];
-    const candidates = this.cells.flatMap((c) =>
+    const candidates = this.cells.flatMap(c =>
       excluded.includes(c) ? [] : [c],
     );
-    arrayShuffle(candidates, this.props.m).forEach((c) => {
+    arrayShuffle(candidates, this.props.m).forEach(c => {
       c.mine = true;
       this.mineIndexArr.push(c.index);
     });
@@ -210,7 +210,7 @@ class MinesweeperModel {
     }
 
     if (this.getAroundMineCount(cell) === 0) {
-      this.getAroundCells(cell).forEach((c) => this.doOpen(c));
+      this.getAroundCells(cell).forEach(c => this.doOpen(c));
     }
     return true;
   }
@@ -232,18 +232,18 @@ class MinesweeperModel {
     if (!cell.open) return;
 
     const around = this.getAroundCells(cell);
-    const flagCount = around.filter((c) => c.flag).length;
+    const flagCount = around.filter(c => c.flag).length;
     if (flagCount === 0 || flagCount !== this.getAroundMineCount(cell)) return;
 
-    around.forEach((c) => this.doOpen(c));
+    around.forEach(c => this.doOpen(c));
     return true;
   }
 
   private doGameEnd(isWin: boolean) {
     if (isWin) {
-      this.stage = "won";
+      this.stage = 'won';
       this.flagIndexSet.clear();
-      this.cells.forEach((c) => {
+      this.cells.forEach(c => {
         if (c.mine) {
           c.flag = true;
           this.flagIndexSet.add(c.index);
@@ -253,9 +253,9 @@ class MinesweeperModel {
         }
       });
     } else {
-      this.stage = "lost";
-      this.mineIndexArr.forEach((index) => (this.cells[index].open = true));
-      this.flagIndexSet.forEach((index) => (this.cells[index].open = true));
+      this.stage = 'lost';
+      this.mineIndexArr.forEach(index => (this.cells[index].open = true));
+      this.flagIndexSet.forEach(index => (this.cells[index].open = true));
     }
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { modeList } from "../res/config.json";
+import { modeList } from '../res/config.json';
 </script>
 
 <template>

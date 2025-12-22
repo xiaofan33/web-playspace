@@ -1,8 +1,8 @@
-import { computed, reactive, watchEffect, type MaybeRefOrGetter } from "vue";
-import { useLocalStorage, useThrottleFn } from "@vueuse/core";
-import { useMoveCommand, usePagehideCallback } from "~/shared/vue";
-import { createModel } from "../model";
-import type { Direction } from "~/shared";
+import { computed, reactive, watchEffect, type MaybeRefOrGetter } from 'vue';
+import { useLocalStorage, useThrottleFn } from '@vueuse/core';
+import { useMoveCommand, usePagehideCallback } from '~/shared/vue';
+import { createModel } from '../model';
+import type { Direction } from '~/shared';
 
 export interface UseG2048Options {
   autoSaveWhenExit?: boolean;
@@ -18,8 +18,8 @@ export function useG2048(
 ) {
   const {
     autoSaveWhenExit = true,
-    lastStateKey = "2048-last-state",
-    bestScoreKey = "2048-best-score",
+    lastStateKey = '2048-last-state',
+    bestScoreKey = '2048-best-score',
     moveThrottle = 50,
     onMoveEffect,
   } = options;

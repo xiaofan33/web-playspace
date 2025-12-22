@@ -1,18 +1,18 @@
-import { lstatSync, readdirSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { resolve } from "pathe";
+import { lstatSync, readdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { resolve } from 'pathe';
 
-const root = fileURLToPath(new URL(".", import.meta.url));
+const root = fileURLToPath(new URL('.', import.meta.url));
 
 function r(p: string, base = root) {
   return resolve(base, p);
 }
 
-function globSubDirAlias(dir: string, prefix = "@") {
+function globSubDirAlias(dir: string, prefix = '@') {
   try {
     return readdirSync(dir)
-      .filter((p) => lstatSync(r(p, dir)).isDirectory())
-      .map((sub) => ({
+      .filter(p => lstatSync(r(p, dir)).isDirectory())
+      .map(sub => ({
         find: `${prefix}/${sub}`,
         replacement: `${dir}/${sub}`,
       }));
@@ -22,8 +22,8 @@ function globSubDirAlias(dir: string, prefix = "@") {
   }
 }
 
-export const ROOT_DIR = r("");
-export const DEMO_DIR = r("demos");
+export const ROOT_DIR = r('');
+export const DEMO_DIR = r('demos');
 
 export const viteAlias = [
   { find: /^~\//, replacement: `${ROOT_DIR}/` },

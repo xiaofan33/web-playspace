@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, toValue, useTemplateRef, watch } from "vue";
-import { modeList } from "../res/config.json";
-import { useG2048 } from "./use";
-import Tile from "./tile.vue";
-import Info from "./info.vue";
+import { computed, onMounted, ref, toValue, useTemplateRef, watch } from 'vue';
+import { modeList } from '../res/config.json';
+import { useG2048 } from './use';
+import Tile from './tile.vue';
+import Info from './info.vue';
 
-const scoreToastRef = useTemplateRef("scoreToast");
+const scoreToastRef = useTemplateRef('scoreToast');
 const scoreToastParent = computed(() => toValue(scoreToastRef)?.parentElement);
-const tileContainerRef = useTemplateRef("tileContainer");
+const tileContainerRef = useTemplateRef('tileContainer');
 
 const modeIndex = ref(0);
 const modeProps = computed(() => modeList[modeIndex.value]);
-const popupAnimate = ref("");
+const popupAnimate = ref('');
 const score = ref(0);
 
 const { state, ...model } = useG2048(tileContainerRef, {
   ...modeProps.value,
   onMoveEffect() {
-    popupAnimate.value = "animate-tile-popup";
+    popupAnimate.value = 'animate-tile-popup';
   },
 });
 
@@ -44,8 +44,8 @@ watch(
     if (scoreToastRef.value) {
       const toast = scoreToastRef.value.cloneNode(true) as HTMLElement;
       toast.textContent = `+${increment}`;
-      toast.classList.replace("hidden", "animate-score-sliding");
-      toast.addEventListener("animationend", () => toast.remove(), {
+      toast.classList.replace('hidden', 'animate-score-sliding');
+      toast.addEventListener('animationend', () => toast.remove(), {
         once: true,
       });
       scoreToastParent.value?.appendChild(toast);
@@ -64,13 +64,13 @@ onMounted(() => {
 
 function newGame() {
   model.init(modeProps.value);
-  popupAnimate.value = "animate-tile-popup-start";
+  popupAnimate.value = 'animate-tile-popup-start';
 }
 
 function syncModeIndex() {
   const { boardWidth } = model.dump();
   if (boardWidth !== modeProps.value.boardWidth) {
-    const index = modeList.findIndex((item) => item.boardWidth === boardWidth);
+    const index = modeList.findIndex(item => item.boardWidth === boardWidth);
     if (index !== -1) {
       modeIndex.value = index;
     }

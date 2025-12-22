@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, useTemplateRef } from "vue";
-import { useBoardEvent } from "./use";
-import Cell from "./cell.vue";
-import type { CellAction, CellState } from "../model";
-import type { SettingOptions } from "../theme";
+import { computed, useTemplateRef } from 'vue';
+import { useBoardEvent } from './use';
+import Cell from './cell.vue';
+import type { CellAction, CellState } from '../model';
+import type { SettingOptions } from '../theme';
 
 const props = defineProps<{
   settings: SettingOptions;
@@ -12,20 +12,17 @@ const props = defineProps<{
   operate: (cell: CellState, action: CellAction, openAround?: boolean) => void;
 }>();
 
-const boardRef = useTemplateRef("board");
-const { enableHighlight, pointerPosition } = useBoardEvent(
-  boardRef,
-  (action) => {
-    if (!hoverCell.value) return;
+const boardRef = useTemplateRef('board');
+const { enableHighlight, pointerPosition } = useBoardEvent(boardRef, action => {
+  if (!hoverCell.value) return;
 
-    // patch
-    let openAround = props.settings.fastMode;
-    if (action === "flag" && hoverCell.value.open) openAround = false;
-    if (action === "open" && props.settings.flagMode) action = "flag";
+  // patch
+  let openAround = props.settings.fastMode;
+  if (action === 'flag' && hoverCell.value.open) openAround = false;
+  if (action === 'open' && props.settings.flagMode) action = 'flag';
 
-    props.operate(hoverCell.value, action, openAround);
-  },
-);
+  props.operate(hoverCell.value, action, openAround);
+});
 
 const hoverCell = computed(() => {
   const { x, y } = pointerPosition.value;
@@ -44,7 +41,7 @@ const highlightCells = computed(() => {
 
   if (!item.open) return [item];
 
-  return props.getAroundCells(item).filter((c) => !c.open && !c.flag);
+  return props.getAroundCells(item).filter(c => !c.open && !c.flag);
 });
 </script>
 

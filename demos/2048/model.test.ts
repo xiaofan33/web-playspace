@@ -1,10 +1,10 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'vitest';
 import {
   createModel,
   tilesToGrid,
   gridToTiles,
   type ModelProps,
-} from "./model";
+} from './model';
 
 function createTestModel(board: number[][], props?: Partial<ModelProps>) {
   return createModel({
@@ -18,8 +18,8 @@ function createTestModel(board: number[][], props?: Partial<ModelProps>) {
   });
 }
 
-describe("G2048Model - Utility Functions", () => {
-  it("should convert board to tiles correctly", () => {
+describe('G2048Model - Utility Functions', () => {
+  it('should convert board to tiles correctly', () => {
     const board = [
       [2, 0, 0, 0],
       [0, 4, 0, 0],
@@ -35,7 +35,7 @@ describe("G2048Model - Utility Functions", () => {
     expect(tiles).toContainEqual({ value: 16, x: 3, y: 3 });
   });
 
-  it("should convert tiles to board correctly", () => {
+  it('should convert tiles to board correctly', () => {
     const tiles = [
       { value: 2, x: 0, y: 0 },
       { value: 4, x: 1, y: 1 },
@@ -53,7 +53,7 @@ describe("G2048Model - Utility Functions", () => {
   });
 });
 
-describe("G2048Model - Movement", () => {
+describe('G2048Model - Movement', () => {
   const initialBoard = [
     [2, 0, 2, 0],
     [2, 2, 4, 4],
@@ -63,7 +63,7 @@ describe("G2048Model - Movement", () => {
 
   const movementTests = [
     {
-      direction: "right" as const,
+      direction: 'right' as const,
       expected: [
         [0, 0, 0, 4],
         [0, 0, 4, 8],
@@ -72,7 +72,7 @@ describe("G2048Model - Movement", () => {
       ],
     },
     {
-      direction: "down" as const,
+      direction: 'down' as const,
       expected: [
         [0, 0, 0, 0],
         [0, 0, 2, 0],
@@ -81,7 +81,7 @@ describe("G2048Model - Movement", () => {
       ],
     },
     {
-      direction: "left" as const,
+      direction: 'left' as const,
       expected: [
         [4, 0, 0, 0],
         [4, 8, 0, 0],
@@ -90,7 +90,7 @@ describe("G2048Model - Movement", () => {
       ],
     },
     {
-      direction: "up" as const,
+      direction: 'up' as const,
       expected: [
         [4, 4, 2, 4],
         [4, 2, 8, 8],
@@ -101,7 +101,7 @@ describe("G2048Model - Movement", () => {
   ];
 
   it.each(movementTests)(
-    "should move tiles $direction correctly",
+    'should move tiles $direction correctly',
     ({ direction, expected }) => {
       const model = createTestModel(initialBoard);
       model.move(direction);
@@ -110,8 +110,8 @@ describe("G2048Model - Movement", () => {
   );
 });
 
-describe("G2048Model - Scoring", () => {
-  it("should calculate score correctly after merging tiles", () => {
+describe('G2048Model - Scoring', () => {
+  it('should calculate score correctly after merging tiles', () => {
     const board = [
       [2, 0, 2, 0],
       [2, 2, 4, 4],
@@ -121,14 +121,14 @@ describe("G2048Model - Scoring", () => {
 
     const model = createTestModel(board);
     const initialScore = model.state.score;
-    model.move("right");
+    model.move('right');
 
     // Expected merges: 2+2=4, 2+2=4, 4+4=8, 2+2=4, 2+2=4
     const expectedScoreIncrease = 4 + 4 + 8 + 4 + 4;
     expect(model.state.score).toBe(initialScore + expectedScoreIncrease);
   });
 
-  it("should not increase score when no tiles merge", () => {
+  it('should not increase score when no tiles merge', () => {
     const board = [
       [2, 4, 8, 16],
       [0, 0, 0, 0],
@@ -138,14 +138,14 @@ describe("G2048Model - Scoring", () => {
 
     const model = createTestModel(board);
     const initialScore = model.state.score;
-    model.move("right");
+    model.move('right');
 
     expect(model.state.score).toBe(initialScore);
   });
 });
 
-describe("G2048Model - Game Over State", () => {
-  it("should detect game over state correctly", () => {
+describe('G2048Model - Game Over State', () => {
+  it('should detect game over state correctly', () => {
     const board = [
       [2, 4, 2, 4],
       [4, 2, 4, 2],
@@ -159,7 +159,7 @@ describe("G2048Model - Game Over State", () => {
     expect(model.canMerge()).toBe(false);
   });
 
-  it("should not set gameOver when moves are still possible", () => {
+  it('should not set gameOver when moves are still possible', () => {
     const board = [
       [2, 4, 2, 4],
       [4, 2, 4, 2],
@@ -168,11 +168,11 @@ describe("G2048Model - Game Over State", () => {
     ];
 
     const model = createTestModel(board);
-    model.move("right");
+    model.move('right');
     expect(model.canMove()).toBe(true);
   });
 
-  it("should set gameOver when no moves are possible", () => {
+  it('should set gameOver when no moves are possible', () => {
     const board = [
       [8, 16, 8, 16],
       [16, 8, 16, 8],
@@ -181,7 +181,7 @@ describe("G2048Model - Game Over State", () => {
     ];
 
     const model = createTestModel(board, { popupMoved: 1 });
-    model.move("up");
+    model.move('up');
     expect(model.canMove()).toBe(false);
   });
 });

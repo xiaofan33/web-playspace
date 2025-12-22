@@ -2,19 +2,19 @@ import {
   useEventListener,
   tryOnUnmounted,
   usePointerSwipe,
-} from "@vueuse/core";
-import type { MaybeRefOrGetter } from "vue";
-import type { Direction } from "../types";
+} from '@vueuse/core';
+import type { MaybeRefOrGetter } from 'vue';
+import type { Direction } from '../types';
 
 const moveCommandMap: Record<string, Direction> = {
-  ArrowUp: "up",
-  ArrowLeft: "left",
-  ArrowDown: "down",
-  ArrowRight: "right",
-  w: "up",
-  a: "left",
-  s: "down",
-  d: "right",
+  ArrowUp: 'up',
+  ArrowLeft: 'left',
+  ArrowDown: 'down',
+  ArrowRight: 'right',
+  w: 'up',
+  a: 'left',
+  s: 'down',
+  d: 'right',
 } as const;
 
 export function useMoveCommand(
@@ -37,7 +37,7 @@ export function useMoveCommand(
   } = options;
 
   if (enableKeyboardInput) {
-    useEventListener("keydown", (event) => {
+    useEventListener('keydown', event => {
       const cmd = commandMap[event.key];
       if (cmd) {
         event.preventDefault();
@@ -49,7 +49,7 @@ export function useMoveCommand(
     usePointerSwipe(element, {
       threshold: swipeThreshold,
       onSwipeEnd(_, cmd) {
-        if (cmd !== "none") {
+        if (cmd !== 'none') {
           callback?.(cmd);
         }
       },
@@ -65,6 +65,6 @@ export function usePagehideCallback(cb: () => void) {
       cb();
     }
   };
-  useEventListener("pagehide", handler);
+  useEventListener('pagehide', handler);
   tryOnUnmounted(handler);
 }

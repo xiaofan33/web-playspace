@@ -1,6 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* https://github.com/egoist/tailwindcss-icons */
-@plugin "@egoist/tailwindcss-icons";
+@plugin '@egoist/tailwindcss-icons';
 
-@source "demos/";
+@source 'demos/';

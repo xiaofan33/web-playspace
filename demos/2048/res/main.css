@@ -1,4 +1,4 @@
-@import "./vars.css";
+@import './vars.css';
 
 .g-2048 .tile-fallback {
   color: var(--tile-fallback-color);

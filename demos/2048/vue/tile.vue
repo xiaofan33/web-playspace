@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch } from 'vue';
 
-const { score, popupAnimate = "animate-tile-popup" } = defineProps<{
+const { score, popupAnimate = 'animate-tile-popup' } = defineProps<{
   score: number;
   popupAnimate?: string;
 }>();
@@ -9,7 +9,7 @@ const { score, popupAnimate = "animate-tile-popup" } = defineProps<{
 const animateCls = ref(popupAnimate);
 watch(
   () => score,
-  () => (animateCls.value = "animate-tile-merge"),
+  () => (animateCls.value = 'animate-tile-merge'),
 );
 </script>
 

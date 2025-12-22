@@ -1,4 +1,4 @@
-import { arrayShuffle, type Direction } from "~/shared";
+import { arrayShuffle, type Direction } from '~/shared';
 
 export interface TileState {
   id?: number;
@@ -22,7 +22,7 @@ export interface ModelProps {
 
 type TilesInLine = (TileState | null)[];
 type MoveOptions = {
-  prop: "x" | "y";
+  prop: 'x' | 'y';
   isReverse: boolean;
   getTiles: (index: number) => TilesInLine;
 };
@@ -62,7 +62,7 @@ class G2048Model {
     if (this.state.tiles.length === 0) {
       this.popupTile(this.props.popupStart);
     } else {
-      this.state.tiles.forEach((t) => (t.id = idCounter++));
+      this.state.tiles.forEach(t => (t.id = idCounter++));
     }
   }
 
@@ -94,7 +94,7 @@ class G2048Model {
   dump() {
     const currentState = {
       ...this.state,
-      tiles: this.state.tiles.map((t) => ({ ...t })),
+      tiles: this.state.tiles.map(t => ({ ...t })),
     };
     return { ...this.props, currentState };
   }
@@ -134,7 +134,7 @@ class G2048Model {
       return;
     }
 
-    arrayShuffle(emptyPos, count).forEach((pos) => {
+    arrayShuffle(emptyPos, count).forEach(pos => {
       const value = Math.random() < 0.9 ? 2 : 4;
       const t = { id: idCounter++, value, ...pos };
       this.state.tiles.push(t);
@@ -147,19 +147,19 @@ class G2048Model {
 
   private updateTileGrid(shouldRecreate = false) {
     if (!shouldRecreate) {
-      this.tileGrid.forEach((row) => row.fill(null));
+      this.tileGrid.forEach(row => row.fill(null));
     } else {
       this.tileGrid = Array.from({ length: this.props.boardWidth }, () =>
         Array.from({ length: this.props.boardWidth }, () => null),
       );
     }
-    this.state.tiles.forEach((t) => (this.tileGrid[t.y][t.x] = t));
+    this.state.tiles.forEach(t => (this.tileGrid[t.y][t.x] = t));
   }
 
   private doMoveTiles({ prop, isReverse, getTiles }: MoveOptions) {
     const length = this.props.boardWidth;
     for (let i = 0; i < length; i++) {
-      let tiles = getTiles(i).filter((t) => t !== null);
+      let tiles = getTiles(i).filter(t => t !== null);
       if (tiles.length === 0) continue;
 
       let offset: number;
@@ -173,7 +173,7 @@ class G2048Model {
       tiles.forEach((t, index) => (t[prop] = index + offset));
     }
 
-    this.state.tiles = this.state.tiles.filter((t) => t.value > 0);
+    this.state.tiles = this.state.tiles.filter(t => t.value > 0);
   }
 
   private mergeTilesInLine(tiles: TileState[]) {
@@ -187,7 +187,7 @@ class G2048Model {
         i--;
       }
     }
-    return tiles.filter((t) => t.value > 0);
+    return tiles.filter(t => t.value > 0);
   }
 }
 
@@ -202,7 +202,7 @@ export function createModel(
 export function tilesToGrid(tiles: TileState[], size: number) {
   const length = size;
   const grid = Array.from({ length }, () => Array.from({ length }, () => 0));
-  tiles.forEach((t) => (grid[t.y][t.x] = t.value));
+  tiles.forEach(t => (grid[t.y][t.x] = t.value));
   return grid;
 }
 

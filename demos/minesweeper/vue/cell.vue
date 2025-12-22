@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { themeLoader, type ColorKey } from "../theme";
-import type { CellState } from "../model";
+import { computed } from 'vue';
+import { themeLoader, type ColorKey } from '../theme';
+import type { CellState } from '../model';
 
 const { cell, palette, highlight } = defineProps<{
   cell: CellState;
@@ -12,32 +12,32 @@ const { cell, palette, highlight } = defineProps<{
 const state = computed(() => {
   if (!cell.open) {
     return {
-      txt: cell.flag ? themeLoader.getEmoji("flag") : "",
+      txt: cell.flag ? themeLoader.getEmoji('flag') : '',
       cls: themeLoader.getBgColor(palette, highlight),
     };
   }
   if (cell.boom) {
     return {
-      txt: themeLoader.getEmoji("boom"),
-      cls: "border-transparent bg-red-600",
+      txt: themeLoader.getEmoji('boom'),
+      cls: 'border-transparent bg-red-600',
     };
   }
   if (cell.flag) {
     return {
-      txt: themeLoader.getEmoji("flag"),
+      txt: themeLoader.getEmoji('flag'),
       cls: cell.mine
         ? themeLoader.getBgColor(palette)
-        : "border-transparent bg-red-300",
+        : 'border-transparent bg-red-300',
     };
   }
   if (cell.mine) {
     return {
-      txt: themeLoader.getEmoji("mine"),
+      txt: themeLoader.getEmoji('mine'),
       cls: themeLoader.getBgColor(palette, true),
     };
   }
   return {
-    txt: cell.aroundMineCount ?? "",
+    txt: cell.aroundMineCount ?? '',
     cls: themeLoader.getBgColor(palette, true),
     styles: { color: themeLoader.getFgColor(cell.aroundMineCount ?? 0) },
   };

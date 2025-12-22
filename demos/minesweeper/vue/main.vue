@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
-import { usePagehideCallback } from "~/shared/vue";
-import { levels, lastGameStoreKey } from "../res/config.json";
-import { formatNumber, isTouchDevice, playWinConfetti } from "../utils";
-import { themeLoader } from "../theme";
-import { useMinesweeperModel, useSettingOptions } from "./use";
-import Board from "./board.vue";
-import type { ModelProps } from "../model";
+import { computed, onMounted, ref, watch } from 'vue';
+import { usePagehideCallback } from '~/shared/vue';
+import { levels, lastGameStoreKey } from '../res/config.json';
+import { formatNumber, isTouchDevice, playWinConfetti } from '../utils';
+import { themeLoader } from '../theme';
+import { useMinesweeperModel, useSettingOptions } from './use';
+import Board from './board.vue';
+import type { ModelProps } from '../model';
 
 const model = useMinesweeperModel();
 const { settings, update: updateSettings } = useSettingOptions();
 
-const isPlaying = computed(() => model.stage.value === "playing");
+const isPlaying = computed(() => model.stage.value === 'playing');
 const timerSec = computed(() => Math.floor(model.timerMs.value / 1000));
-const level = ref("easy");
+const level = ref('easy');
 
 watch(
   () => model.stage.value,
-  (value) => {
-    if (value === "won") playWinConfetti();
+  value => {
+    if (value === 'won') playWinConfetti();
   },
 );
 
@@ -28,7 +28,7 @@ function newGame(props?: ModelProps) {
 }
 
 function onChangeLevel() {
-  const item = levels.find((l) => l.key === level.value);
+  const item = levels.find(l => l.key === level.value);
   if (!item) return;
 
   const props = { w: item.w, h: item.h, m: item.m };
@@ -43,8 +43,8 @@ function onClickWindmill() {
 
 function syncLevelDisplay() {
   const { w, h, m } = model.props.value;
-  const item = levels.find((l) => l.w === w && l.h === h && l.m === m);
-  level.value = item?.key || "custom";
+  const item = levels.find(l => l.w === w && l.h === h && l.m === m);
+  level.value = item?.key || 'custom';
 }
 
 /**
@@ -54,7 +54,7 @@ function syncLevelDisplay() {
  */
 const showReloadBtn = ref(false);
 const isSharedGame = ref(false);
-const sharedLink = ref("");
+const sharedLink = ref('');
 
 usePagehideCallback(() => {
   if (settings.value.autoSave && isPlaying.value && !isSharedGame.value) {
@@ -152,7 +152,7 @@ function onClickSharedBtn() {
 
       <div class="flex items-center justify-between text-lg">
         <div class="flex w-28 items-center justify-center">
-          {{ themeLoader.getEmoji("mine") }}
+          {{ themeLoader.getEmoji('mine') }}
           <span class="ml-2 font-mono font-bold text-red-600">{{
             formatNumber(model.remainMinesCount.value)
           }}</span>
@@ -164,7 +164,7 @@ function onClickSharedBtn() {
           {{ themeLoader.getEmoji(model.stage.value) }}
         </button>
         <div class="flex w-28 items-center justify-center">
-          {{ themeLoader.getEmoji("timer") }}
+          {{ themeLoader.getEmoji('timer') }}
           <span class="ml-2 font-mono font-bold text-red-600">{{
             formatNumber(timerSec)
           }}</span>
@@ -193,7 +193,7 @@ function onClickSharedBtn() {
               })
             "
           />
-          <span class="ml-2">{{ themeLoader.getEmoji("flag") }}</span>
+          <span class="ml-2">{{ themeLoader.getEmoji('flag') }}</span>
         </label>
         <button
           :disabled="isPlaying || !showReloadBtn"
