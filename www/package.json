@@ -1,0 +1,10 @@
+{
+  "name": "www",
+  "scripts": {
+    "dev": "vite --host --port 5530",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "vue-router": "^4.6.4"
+  }
+}
