@@ -11,4 +11,10 @@ export const demoRoutes = [
     description: 'Emoji 风格的网页端扫雷小游戏',
     component: () => import('@/minesweeper/vue/main.vue'),
   },
+  {
+    path: '/n-queens',
+    name: 'n-queens',
+    description: '八皇后问题的可行摆法展示',
+    component: () => import('@/n-queens/vue/main.vue'),
+  },
 ];

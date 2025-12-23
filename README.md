@@ -10,6 +10,6 @@
 
 ## problems
 
-- eight queens
+- n queens
 
 ...
