@@ -17,4 +17,10 @@ export const demoRoutes = [
     description: '八皇后问题的可行摆法展示',
     component: () => import('@/n-queens/vue/main.vue'),
   },
+  {
+    path: '/sliding-puzzle',
+    name: 'sliding-puzzle',
+    description: '滑动拼图小游戏，又名《数字华容道》',
+    component: () => import('@/sliding-puzzle/vue/main.vue'),
+  },
 ];
