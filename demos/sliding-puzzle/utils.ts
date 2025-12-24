@@ -36,11 +36,12 @@ export function splitImage(
 export async function repeat(
   times: number,
   fn: () => Promise<void> | void,
-  interval = 500 /**ms */,
+  wait = 500 /**ms */,
 ) {
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-  for (let i = 0; i < times; i++) {
+  for (let i = 0; i < times - 1; i++) {
     await fn();
-    await delay(interval);
+    await delay(wait);
   }
+  await fn();
 }

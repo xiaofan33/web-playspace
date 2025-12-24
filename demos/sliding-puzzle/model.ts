@@ -68,6 +68,8 @@ class SlidingPuzzleModel {
   }
 
   move(arg: number | Position | Direction) {
+    if (this.isSolved) return;
+
     if (typeof arg === 'string') {
       const { x, y } = vectorMap[arg];
       arg = { x: this.blank.x - x, y: this.blank.y - y };
@@ -86,8 +88,12 @@ class SlidingPuzzleModel {
   shuffle(count?: number) {
     count = count ?? this.pieces.length * 10;
     while (count > 0) {
-      const randomPos = directions[getRadomInt(0, directions.length)];
-      const p = this.getPiece(randomPos);
+      const dir = directions[getRadomInt(0, directions.length)];
+      const tx = this.blank.x + dir.x;
+      const ty = this.blank.y + dir.y;
+      if (tx < 0 || ty < 0 || tx >= this.props.w || ty >= this.props.h)
+        continue;
+      const p = this.getPiece({ x: tx, y: ty });
       if (p) {
         this.doSwap(p);
         count--;
