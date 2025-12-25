@@ -13,6 +13,7 @@
     "@types/node": "^25.0.3",
     "@vitejs/plugin-vue": "^6.0.3",
     "@vueuse/core": "^14.1.0",
+    "axios": "^1.13.2",
     "canvas-confetti": "^1.9.4",
     "pathe": "^2.0.3",
     "prettier": "^3.7.4",
