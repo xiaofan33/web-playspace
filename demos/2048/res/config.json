@@ -1,7 +1,0 @@
-{
-  "modeList": [
-    { "label": "4x4", "boardWidth": 4, "popupStart": 2, "popupMoved": 1 },
-    { "label": "5x5", "boardWidth": 5, "popupStart": 3, "popupMoved": 2 },
-    { "label": "6x6", "boardWidth": 6, "popupStart": 4, "popupMoved": 3 }
-  ]
-}
