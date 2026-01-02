@@ -1,0 +1,150 @@
+@import './vars.css';
+
+.g-2048 .tile-fallback {
+  color: var(--tile-fallback-color);
+  background: var(--tile-fallback-bg);
+  box-shadow: var(--tile-fallback-shadow);
+  font-size: var(--tile-fallback-font);
+}
+
+.g-2048 .tile-2 {
+  color: var(--tile-2-color);
+  background: var(--tile-2-bg);
+  box-shadow: var(--tile-2-shadow);
+  font-size: var(--tile-2-font);
+}
+
+.g-2048 .tile-4 {
+  color: var(--tile-4-color);
+  background: var(--tile-4-bg);
+  box-shadow: var(--tile-4-shadow);
+  font-size: var(--tile-4-font);
+}
+
+.g-2048 .tile-8 {
+  color: var(--tile-8-color);
+  background: var(--tile-8-bg);
+  box-shadow: var(--tile-8-shadow);
+  font-size: var(--tile-8-font);
+}
+
+.g-2048 .tile-16 {
+  color: var(--tile-16-color);
+  background: var(--tile-16-bg);
+  box-shadow: var(--tile-16-shadow);
+  font-size: var(--tile-16-font);
+}
+
+.g-2048 .tile-32 {
+  color: var(--tile-32-color);
+  background: var(--tile-32-bg);
+  box-shadow: var(--tile-32-shadow);
+  font-size: var(--tile-32-font);
+}
+
+.g-2048 .tile-64 {
+  color: var(--tile-64-color);
+  background: var(--tile-64-bg);
+  box-shadow: var(--tile-64-shadow);
+  font-size: var(--tile-64-font);
+}
+
+.g-2048 .tile-128 {
+  color: var(--tile-128-color);
+  background: var(--tile-128-bg);
+  box-shadow: var(--tile-128-shadow);
+  font-size: var(--tile-128-font);
+}
+
+.g-2048 .tile-256 {
+  color: var(--tile-256-color);
+  background: var(--tile-256-bg);
+  box-shadow: var(--tile-256-shadow);
+  font-size: var(--tile-256-font);
+}
+
+.g-2048 .tile-512 {
+  color: var(--tile-512-color);
+  background: var(--tile-512-bg);
+  box-shadow: var(--tile-512-shadow);
+  font-size: var(--tile-512-font);
+}
+
+.g-2048 .tile-1024 {
+  color: var(--tile-1024-color);
+  background: var(--tile-1024-bg);
+  box-shadow: var(--tile-1024-shadow);
+  font-size: var(--tile-1024-font);
+}
+
+.g-2048 .tile-2048 {
+  color: var(--tile-2048-color);
+  background: var(--tile-2048-bg);
+  box-shadow: var(--tile-2048-shadow);
+  font-size: var(--tile-2048-font);
+}
+
+.g-2048 .gg-enter-from {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.g-2048 .gg-enter-active {
+  transition: all 0.5s ease 1s;
+}
+
+.g-2048 .animate-score-sliding {
+  animation: 1.2s ease g-2048-score-sliding forwards;
+}
+
+.g-2048 .animate-tile-popup-start {
+  animation: 0.15s ease g-2048-popup;
+}
+
+.g-2048 .animate-tile-popup {
+  opacity: 0;
+  animation: 0.15s ease 0.15s g-2048-popup forwards;
+}
+
+.g-2048 .animate-tile-merge {
+  animation: 0.15s ease 0.15s g-2048-merge;
+}
+
+@keyframes g-2048-score-sliding {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translateY(-0.5rem);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-6.5rem);
+  }
+}
+
+@keyframes g-2048-popup {
+  0% {
+    transform: scale(0.4);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes g-2048-merge {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
