@@ -7,7 +7,7 @@
   "dependencies": {
     "@egoist/tailwindcss-icons": "^1.9.0",
     "@iconify-json/lucide": "^1.2.82",
-    "@iconify-json/tabler": "^1.2.25",
+    "@iconify-json/tabler": "^1.2.26",
     "@tailwindcss/vite": "^4.1.18",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^25.0.3",
