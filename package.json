@@ -4,7 +4,9 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^25.0.3",
+    "canvas-confetti": "^1.9.4",
     "pathe": "^2.0.3",
     "prettier": "^3.7.4",
     "typescript": "^5.9.3",
