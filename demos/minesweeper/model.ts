@@ -79,7 +79,7 @@ class MinesweeperModel {
   }
 
   restart() {
-    if (this.stage === 'ready') {
+    if (!this.minesPlaced) {
       return
     }
 
